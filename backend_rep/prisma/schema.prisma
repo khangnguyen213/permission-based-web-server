@@ -30,7 +30,6 @@ model Role {
 }
 
 model Permission {
-  id    String @id @default(cuid())
-  name  String @unique
+  name  String @id @unique
   roles Role[]
 }
