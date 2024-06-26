@@ -1,4 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client';
+import { hashSync } from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -36,7 +37,7 @@ const generateAdminRole = (): Prisma.RoleCreateInput => {
 const generateRootUser = (): Prisma.UserCreateInput => {
   return {
     email: 'root@admin.com',
-    password: 'password',
+    password: hashSync('password', 10),
     role: {
       connect: {
         name: 'ADMIN',

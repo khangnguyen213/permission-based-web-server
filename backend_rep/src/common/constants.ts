@@ -6,3 +6,10 @@ export const RESPONSE_MESSAGES = {
   ERROR_PASSWORD_INCORRECT: 'Password is incorrect',
   ERROR_UNKNOW: 'Unknown error',
 };
+
+export const ROLE_PERMISSIONS = {
+  READ: 'READ',
+  WRITE: 'WRITE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+};

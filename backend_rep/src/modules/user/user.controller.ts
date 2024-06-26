@@ -1,12 +1,18 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Response } from 'express';
-import { RESPONSE_MESSAGES } from 'src/common/constants';
+import { RESPONSE_MESSAGES, ROLE_PERMISSIONS } from 'src/common/constants';
+import { AuthGuard } from '@nestjs/passport';
+import { PermissionGuard } from '../auth/permission.guard';
+import { Permission } from '../auth/permission.decorator';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.READ)
   @Get()
   async getAll(@Res() res: Response) {
     try {
