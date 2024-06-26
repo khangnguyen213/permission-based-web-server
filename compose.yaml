@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: backend_rep
+
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mysql://user:password@db:3306/ojt
+      JWT_KEY: JWT_KEY
+      SERVER_URL: http://localhost:3000
+      PORT: 3000
+    ports:
+      - 3000:3000
+    networks:
+      - app-network
+    depends_on:
+      - db
+    expose:
+      - 3000
+    # command: npm run start:migrate:prod
+    # command: npm run start:prod
+    # command:
+    #   ['./usr/wait-for', 'db:3306', '--', 'npm', 'run', 'start:migrate:prod']
+    command: ['./usr/wait-for', 'db:3306', '--', 'npm', 'run', 'start:prod']
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ojt
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+    expose:
+      - 3306
+volumes:
+  db-data:
+networks:
+  app-network:
+    driver: bridge
