@@ -5,7 +5,12 @@ export interface RequestWithUserData extends Request {
     id: string;
     email: string;
     password: string;
-    role: string;
+    role: {
+      name: string;
+      permissions: {
+        name: string;
+      }[];
+    };
     createdAt: Date;
     updatedAt: Date;
   };
