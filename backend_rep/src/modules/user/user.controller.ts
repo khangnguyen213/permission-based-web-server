@@ -12,7 +12,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(PermissionGuard)
-  @Permission(ROLE_PERMISSIONS.READ)
+  @Permission(ROLE_PERMISSIONS.USER_READ)
   @Get()
   async getAll(@Res() res: Response) {
     try {

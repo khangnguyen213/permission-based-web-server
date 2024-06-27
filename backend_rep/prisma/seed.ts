@@ -3,19 +3,31 @@ import { hashSync } from 'bcrypt';
 
 const prisma = new PrismaClient();
 
-const generateCRUDPermissions = (): Prisma.PermissionCreateInput[] => {
+const generatePermissions = (): Prisma.PermissionCreateInput[] => {
   return [
     {
-      name: 'CREATE',
+      name: 'user:create',
     },
     {
-      name: 'READ',
+      name: 'user:read',
     },
     {
-      name: 'UPDATE',
+      name: 'user:update',
     },
     {
-      name: 'DELETE',
+      name: 'user:delete',
+    },
+    {
+      name: 'role:create',
+    },
+    {
+      name: 'role:read',
+    },
+    {
+      name: 'role:update',
+    },
+    {
+      name: 'role:delete',
     },
   ];
 };
@@ -24,12 +36,9 @@ const generateAdminRole = (): Prisma.RoleCreateInput => {
   return {
     name: 'ADMIN',
     permissions: {
-      connect: [
-        { name: 'CREATE' },
-        { name: 'READ' },
-        { name: 'UPDATE' },
-        { name: 'DELETE' },
-      ],
+      connect: generatePermissions().map((permission) => ({
+        name: permission.name,
+      })),
     },
   };
 };
@@ -47,7 +56,7 @@ const generateRootUser = (): Prisma.UserCreateInput => {
 };
 
 async function main() {
-  const initialPermissions = generateCRUDPermissions();
+  const initialPermissions = generatePermissions();
   const adminRole = generateAdminRole();
   const rootUser = generateRootUser();
 
