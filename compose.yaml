@@ -7,8 +7,6 @@ services:
       NODE_ENV: production
       DATABASE_URL: mysql://user:password@db:3306/ojt
       JWT_KEY: JWT_KEY
-      SERVER_URL: http://localhost:3000
-      PORT: 3000
     ports:
       - 3000:3000
     networks:
@@ -37,6 +35,8 @@ services:
       - app-network
     expose:
       - 3306
+    ports:
+      - 3306:3306
 volumes:
   db-data:
 networks:
