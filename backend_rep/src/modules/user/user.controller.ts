@@ -75,7 +75,7 @@ export class UserController {
       const { data, err } = await this.userService.update(id, body);
       if (err) {
         if (isPrismaError(err, 'P2025')) {
-          return res.status(404).json({
+          return res.status(500).json({
             message: RESPONSE_MESSAGES.ERROR_USER_NOT_FOUND,
           });
         }
@@ -107,7 +107,7 @@ export class UserController {
       const { err } = await this.userService.delete(id);
       if (err) {
         if (isPrismaError(err, 'P2025')) {
-          return res.status(404).json({
+          return res.status(500).json({
             message: RESPONSE_MESSAGES.ERROR_USER_NOT_FOUND,
           });
         }
