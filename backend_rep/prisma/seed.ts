@@ -43,6 +43,12 @@ const generateAdminRole = (): Prisma.RoleCreateInput => {
   };
 };
 
+const generateUserRole = (): Prisma.RoleCreateInput => {
+  return {
+    name: 'USER',
+  };
+};
+
 const generateRootUser = (): Prisma.UserCreateInput => {
   return {
     email: 'root@admin.com',
@@ -58,6 +64,7 @@ const generateRootUser = (): Prisma.UserCreateInput => {
 async function main() {
   const initialPermissions = generatePermissions();
   const adminRole = generateAdminRole();
+  const userRole = generateUserRole();
   const rootUser = generateRootUser();
 
   await prisma.permission.createMany({
@@ -66,6 +73,10 @@ async function main() {
 
   await prisma.role.create({
     data: adminRole,
+  });
+
+  await prisma.role.create({
+    data: userRole,
   });
 
   await prisma.user.create({
