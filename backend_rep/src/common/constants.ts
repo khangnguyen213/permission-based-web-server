@@ -5,6 +5,9 @@ export const RESPONSE_MESSAGES = {
   ERROR_USER_NOT_FOUND: 'User not found',
   ERROR_PASSWORD_INCORRECT: 'Password is incorrect',
   ERROR_UPDATE_WITHOUT_DATA: 'At least one field must be provided to update.',
+  ERROR_ROLE_NOT_FOUND: 'Role not found',
+  ERROR_ROLE_ALREADY_EXISTS: 'Role already exists',
+  ERROR_PERMISSION_NOT_FOUND: 'Permission not found',
   ERROR_UNKNOW: 'Unknown error',
 };
 
