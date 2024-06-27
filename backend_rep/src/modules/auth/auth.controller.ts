@@ -10,11 +10,11 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { Response } from 'express';
-import { Prisma } from '@prisma/client';
 import { RESPONSE_MESSAGES } from 'src/common/constants';
 import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RequestWithUserData } from 'src/common/interfaces';
+import { isPrismaError } from 'src/common/utils';
 
 @Controller('auth')
 export class AuthController {
@@ -23,12 +23,9 @@ export class AuthController {
   @Post('register')
   async register(@Body() body: RegisterDto, @Res() res: Response) {
     try {
-      const { data, err } = await this.authService.register(body);
+      const { err } = await this.authService.register(body);
       if (err) {
-        if (
-          err instanceof Prisma.PrismaClientKnownRequestError &&
-          err.code === 'P2002'
-        ) {
+        if (isPrismaError(err, 'P2002')) {
           throw {
             message: RESPONSE_MESSAGES.ERROR_EMAIL_ALREADY_EXISTS,
           };
