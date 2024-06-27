@@ -7,18 +7,25 @@ import {
   Post,
   Put,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { Response } from 'express';
-import { RESPONSE_MESSAGES } from 'src/common/constants';
+import { RESPONSE_MESSAGES, ROLE_PERMISSIONS } from 'src/common/constants';
 import { isPrismaError } from 'src/common/utils';
 import { RoleCreateDto } from './dto/role-create.dto';
 import { RoleUpdateDto } from './dto/role-update.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { PermissionGuard } from '../auth/permission.guard';
+import { Permission } from '../auth/permission.decorator';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.ROLE_CREATE)
   @Post()
   async create(@Body() data: RoleCreateDto, @Res() res: Response) {
     try {
@@ -41,6 +48,8 @@ export class RoleController {
     }
   }
 
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.ROLE_READ)
   @Get()
   async getAll(@Res() res: Response) {
     try {
@@ -58,6 +67,8 @@ export class RoleController {
     }
   }
 
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.ROLE_READ)
   @Get(':roleName')
   async get(@Param('roleName') roleName: string, @Res() res: Response) {
     try {
@@ -75,6 +86,8 @@ export class RoleController {
     }
   }
 
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.ROLE_UPDATE)
   @Put(':roleName')
   async update(
     @Param('roleName') roleName: string,
@@ -123,6 +136,8 @@ export class RoleController {
     }
   }
 
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.ROLE_DELETE)
   @Delete(':roleName')
   async delete(@Param('roleName') roleName: string, @Res() res: Response) {
     try {
