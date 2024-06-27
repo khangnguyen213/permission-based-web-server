@@ -12,6 +12,17 @@ export class PermissionGuard implements CanActivate {
       context.getHandler(),
     );
 
+    const allowSelf = this.reflector.get<boolean>(
+      'allow-self',
+      context.getHandler(),
+    );
+    if (allowSelf) {
+      const request: RequestWithUserData = context.switchToHttp().getRequest();
+      if (request.params.userId === request.user.id) {
+        return true;
+      }
+    }
+
     if (!permission) {
       return false;
     }
