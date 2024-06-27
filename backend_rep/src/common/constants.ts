@@ -4,6 +4,7 @@ export const RESPONSE_MESSAGES = {
   ERROR_LOGIN: 'Error logging in',
   ERROR_USER_NOT_FOUND: 'User not found',
   ERROR_PASSWORD_INCORRECT: 'Password is incorrect',
+  ERROR_UPDATE_WITHOUT_DATA: 'At least one field must be provided to update.',
   ERROR_UNKNOW: 'Unknown error',
 };
 
