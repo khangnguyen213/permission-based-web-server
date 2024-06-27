@@ -1,5 +1,6 @@
 import { PrismaClient, Prisma } from '@prisma/client';
-import { hashSync } from 'bcrypt';
+// import { hashSync } from 'bcrypt';
+import { hashSync } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -61,11 +62,19 @@ const generateRootUser = (): Prisma.UserCreateInput => {
   };
 };
 
+const clearAllData = async () => {
+  await prisma.permission.deleteMany();
+  await prisma.role.deleteMany();
+  await prisma.user.deleteMany();
+};
+
 async function main() {
   const initialPermissions = generatePermissions();
   const adminRole = generateAdminRole();
   const userRole = generateUserRole();
   const rootUser = generateRootUser();
+
+  await clearAllData();
 
   await prisma.permission.createMany({
     data: initialPermissions,
@@ -86,7 +95,7 @@ async function main() {
 
 main()
   .catch((e) => {
-    throw e;
+    console.log(e);
   })
   .finally(async () => {
     await prisma.$disconnect();

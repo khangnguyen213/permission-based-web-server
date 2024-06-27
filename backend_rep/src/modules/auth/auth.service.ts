@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
-import { hashSync, compareSync } from 'bcrypt';
+// import { hashSync, compareSync } from 'bcrypt';
+import { hashSync, compareSync } from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { RESPONSE_MESSAGES } from 'src/common/constants';
 import { JwtService } from '@nestjs/jwt';

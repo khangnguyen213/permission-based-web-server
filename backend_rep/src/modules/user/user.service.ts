@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserUpdateDto } from './dto/user-update.dto';
-import { hashSync } from 'bcrypt';
+import { hashSync } from 'bcryptjs';
 import { RESPONSE_MESSAGES } from 'src/common/constants';
 
 @Injectable()
