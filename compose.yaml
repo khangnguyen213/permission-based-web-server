@@ -26,6 +26,8 @@ services:
       - db
     expose:
       - 3000
+
+    # COMMAND FOR FIRST COMPOSE UP
     # command:
     #   [
     #     './usr/wait-for-it.sh',
@@ -35,6 +37,8 @@ services:
     #     'run',
     #     'start:pushdb:prod',
     #   ]
+
+    # COMMAND FOR SUBSEQUENT COMPOSE UP
     command:
       ['./usr/wait-for-it.sh', 'db:3306', '--', 'npm', 'run', 'start:prod']
 
