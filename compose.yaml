@@ -1,15 +1,15 @@
 services:
-  # frontend:
-  #   build:
-  #     context: frontend_rep
-  #   ports:
-  #     - 3001:3001
-  #   networks:
-  #     - app-network
-  #   depends_on:
-  #     - backend
-  #   command:
-  #     ['./usr/wait-for-it.sh', 'backend:3000', '--', 'npm', 'run', 'start']
+  frontend:
+    build:
+      context: frontend_rep
+    ports:
+      - 3001:3001
+    networks:
+      - app-network
+    depends_on:
+      - backend
+    command:
+      ['./usr/wait-for-it.sh', 'backend:3000', '--', 'npm', 'run', 'start']
   backend:
     build:
       context: backend_rep
