@@ -26,17 +26,17 @@ services:
       - db
     expose:
       - 3000
-    command:
-      [
-        './usr/wait-for-it.sh',
-        'db:3306',
-        '--',
-        'npm',
-        'run',
-        'start:pushdb:prod',
-      ]
     # command:
-    #   ['./usr/wait-for-it.sh', 'db:3306', '--', 'npm', 'run', 'start:prod']
+    #   [
+    #     './usr/wait-for-it.sh',
+    #     'db:3306',
+    #     '--',
+    #     'npm',
+    #     'run',
+    #     'start:pushdb:prod',
+    #   ]
+    command:
+      ['./usr/wait-for-it.sh', 'db:3306', '--', 'npm', 'run', 'start:prod']
 
   db:
     image: mysql
