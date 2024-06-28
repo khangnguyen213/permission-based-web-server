@@ -7,6 +7,8 @@ WORKDIR /app
 
 COPY package.json .
 
+RUN apk update && apk add bash
+
 RUN npm install
 
 COPY . .
@@ -24,8 +26,10 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/wait-for-it.sh /app/usr/wait-for-it.sh
+RUN apk update && apk add bash
+RUN chmod +x ./usr/wait-for-it.sh
 
-COPY wait-for /app/usr/wait-for
-RUN chmod +x /app/usr/wait-for
+# CMD ["/app/wait-for", "db:3306", "--", 'npm', 'run', 'start:pushdb:prod']
 
 EXPOSE 3000
