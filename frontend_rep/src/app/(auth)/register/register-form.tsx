@@ -14,15 +14,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { LoginBody } from '@/schemaValidations/auth.scema';
+import { RegisterBody } from '@/schemaValidations/auth.scema';
 import { authApi } from '@/service/authApi';
 
-type FormValues = z.infer<typeof LoginBody>;
+type FormValues = z.infer<typeof RegisterBody>;
 
-export function LoginForm() {
+export function RegisterForm() {
   // 1. Define your form.
   const form = useForm<FormValues>({
-    resolver: zodResolver(LoginBody),
+    resolver: zodResolver(RegisterBody),
     defaultValues: {
       email: '',
       password: '',
@@ -34,7 +34,7 @@ export function LoginForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    const { data, err } = await authApi.login(values.email, values.password);
+    const { data, err } = await authApi.register(values.email, values.password);
     console.log(data, err);
   }
 

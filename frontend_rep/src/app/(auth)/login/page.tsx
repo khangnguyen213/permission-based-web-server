@@ -1,11 +1,11 @@
-import { RegisterForm } from './login-form';
+import { LoginForm } from './login-form';
 
 function Login() {
   return (
     <div>
-      <h1>Login</h1>
+      <h1 className="text-center text-2xl">Login</h1>
       <div className="w-[50vw] mx-auto">
-        <RegisterForm />
+        <LoginForm />
       </div>
     </div>
   );
