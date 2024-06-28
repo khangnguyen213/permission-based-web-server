@@ -32,6 +32,11 @@ Step 3: Run the container
   docker compose up
 ```
 
+Step 4: Open browser
+
+- Frontend: http://localhost:3001
+- Backend: http://localhost:3000
+
 ### Run this project after build
 
 Step 1: Change this docker-compose.yml file in backend service like this:
@@ -53,3 +58,8 @@ Step 2: Run the container
 ```bash
   docker compose up
 ```
+
+Step 3: Open browser
+
+- Frontend: http://localhost:3001
+- Backend: http://localhost:3000
