@@ -8,7 +8,6 @@ services:
       - app-network
     depends_on:
       - backend
-    # command: ['npm', 'run', 'start']
     command:
       ['./usr/wait-for-it.sh', 'backend:3000', '--', 'npm', 'run', 'start']
   backend:
@@ -36,7 +35,8 @@ services:
         'run',
         'start:pushdb:prod',
       ]
-    # command: ['./usr/wait-for', 'db:3306', '--', 'npm', 'run', 'start:prod']
+    # command:
+    #   ['./usr/wait-for-it.sh', 'db:3306', '--', 'npm', 'run', 'start:prod']
 
   db:
     image: mysql
