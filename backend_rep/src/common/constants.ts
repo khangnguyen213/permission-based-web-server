@@ -3,7 +3,7 @@ export const RESPONSE_MESSAGES = {
   ERROR_REGISTER_USER: 'Error registering user',
   ERROR_LOGIN: 'Error logging in',
   ERROR_USER_NOT_FOUND: 'User not found',
-  ERROR_PASSWORD_INCORRECT: 'Password is incorrect',
+  ERROR_EMAIL_OR_PASSWORD_INCORRECT: 'Email or password incorrect',
   ERROR_UPDATE_WITHOUT_DATA: 'At least one field must be provided to update.',
   ERROR_ROLE_NOT_FOUND: 'Role not found',
   ERROR_ROLE_ALREADY_EXISTS: 'Role already exists',

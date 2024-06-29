@@ -37,13 +37,13 @@ export class AuthService {
       });
       if (!user) {
         throw {
-          message: RESPONSE_MESSAGES.ERROR_USER_NOT_FOUND,
+          message: RESPONSE_MESSAGES.ERROR_EMAIL_OR_PASSWORD_INCORRECT,
         };
       }
 
       if (!compareSync(data.password, user.password)) {
         throw {
-          message: RESPONSE_MESSAGES.ERROR_PASSWORD_INCORRECT,
+          message: RESPONSE_MESSAGES.ERROR_EMAIL_OR_PASSWORD_INCORRECT,
         };
       }
 
