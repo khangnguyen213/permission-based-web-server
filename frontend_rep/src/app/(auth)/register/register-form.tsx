@@ -16,26 +16,30 @@ import {
 import { Input } from '@/components/ui/input';
 import { RegisterBody } from '@/schemaValidations/auth.scema';
 import { authApi } from '@/service/authApi';
+import { useState } from 'react';
 
 type FormValues = z.infer<typeof RegisterBody>;
 
 export function RegisterForm() {
+  const [error, setError] = useState<string>('');
   // 1. Define your form.
   const form = useForm<FormValues>({
     resolver: zodResolver(RegisterBody),
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
     },
   });
-
   // 2. Define a submit handler.
   async function onSubmit(values: FormValues) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
     const { data, err } = await authApi.register(values.email, values.password);
-    console.log(data, err);
+    if (err) {
+      setError(err);
+    }
+    if (data) {
+      window.location.href = '/login';
+    }
   }
 
   return (
@@ -67,7 +71,25 @@ export function RegisterForm() {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Confirm password"
+                  type="password"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Submit</Button>
+        {error && <FormMessage>{error}</FormMessage>}
       </form>
     </Form>
   );

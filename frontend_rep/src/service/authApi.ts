@@ -1,3 +1,4 @@
+import { TokenData } from '@/common/interfaces';
 import axios from './api';
 
 const baseURL = '/auth';
@@ -37,7 +38,7 @@ export const authApi = {
     data: {
       id: string;
       email: string;
-      role: string;
+      role: TokenData;
     } | null;
     err: string;
   }> => {

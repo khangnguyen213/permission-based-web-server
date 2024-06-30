@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
-import dynamic from 'next/dynamic';
-// import Header from '@/components/header';
-const Header = dynamic(() => import('@/components/header'), { ssr: false });
+// import dynamic from 'next/dynamic';
+// const Header = dynamic(() => import('@/components/header'), { ssr: false });
+import Header from '@/components/header/header';
 import StoreProvider from './StoreProvider';
 
 const inter = Inter({ subsets: ['latin'] });

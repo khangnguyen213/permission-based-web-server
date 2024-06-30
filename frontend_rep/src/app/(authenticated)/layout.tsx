@@ -15,5 +15,10 @@ export default function AuthenticatedLayout({
       window.location.href = '/login';
     }
   }, [sessionStore.data, sessionStore.loading]);
-  return <main>{sessionStore.data && children}</main>;
+  return (
+    <main>
+      <div>Role: {sessionStore.data?.role?.name || 'Not assigned'}</div>
+      {sessionStore.data && children}
+    </main>
+  );
 }

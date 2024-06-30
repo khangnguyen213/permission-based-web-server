@@ -1,15 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from './index';
 import { authApi } from '@/service/authApi';
-import { type } from 'os';
+import { TokenData } from '@/common/interfaces';
 
 export const initialState: {
   loading: boolean;
-  data: {
-    id: string;
-    email: string;
-    role: string;
-  } | null;
+  data: TokenData | null;
 } = {
   loading: false,
   data: null,
