@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './rootReducer'; // file này sẽ tạo ở bước tiếp theo
-import { sessionActions } from './sessionSlice';
 import { useStore } from 'react-redux';
 
 export const store = configureStore({

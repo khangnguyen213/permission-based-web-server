@@ -35,11 +35,7 @@ export const authApi = {
   },
 
   getData: async (): Promise<{
-    data: {
-      id: string;
-      email: string;
-      role: TokenData;
-    } | null;
+    data: TokenData | null;
     err: string;
   }> => {
     try {
