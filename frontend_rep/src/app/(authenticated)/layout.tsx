@@ -18,6 +18,12 @@ export default function AuthenticatedLayout({
   return (
     <main>
       <div>Role: {sessionStore.data?.role?.name || 'Not assigned'}</div>
+      <div>Your permissions:</div>
+      <ul>
+        {sessionStore.data?.role?.permissions.map((permission) => (
+          <li key={permission.name}>{permission.name}</li>
+        ))}
+      </ul>
       {sessionStore.data && children}
     </main>
   );
