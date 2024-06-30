@@ -36,6 +36,10 @@ export function LoginForm() {
     console.log(values);
     const { data, err } = await authApi.login(values.email, values.password);
     console.log(data, err);
+    if (data) {
+      localStorage.setItem('token', data);
+      window.location.href = '/';
+    }
   }
 
   return (

@@ -14,5 +14,5 @@ export const RegisterBody = z.object({
 
 export const LoginBody = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(256),
+  password: z.string(),
 });
