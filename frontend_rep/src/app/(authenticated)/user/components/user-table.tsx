@@ -36,7 +36,7 @@ function UserTable() {
   return (
     <div className="w-[80%] mx-auto">
       <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
+        <TableCaption>A list of users</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>#</TableHead>
