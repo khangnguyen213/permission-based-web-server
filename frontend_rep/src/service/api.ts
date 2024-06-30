@@ -6,7 +6,6 @@ class Api {
   axios: AxiosInstance;
   constructor() {
     this.baseURL = process.env.NEXT_PUBLIC_API_URL;
-
     if (typeof window !== 'undefined') {
       this.token = localStorage?.getItem('token')
         ? window.localStorage.getItem('token')
@@ -14,8 +13,6 @@ class Api {
     } else {
       this.token = null;
     }
-
-    console.log(this.token);
 
     this.axios = axios.create({
       baseURL: this.baseURL,
