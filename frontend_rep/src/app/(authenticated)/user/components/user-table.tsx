@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import { userApi } from '@/service/userApi';
 import { useEffect, useState } from 'react';
+import { toast, useToast } from '@/components/ui/use-toast';
 
 function UserTable() {
   const [users, setUsers] = useState<UserDto[]>([]);
@@ -19,7 +20,12 @@ function UserTable() {
   useEffect(() => {
     userApi.getAll().then((res) => {
       if (res.err) {
-        console.log(res.err);
+        toast({
+          title: 'Forbidden',
+          description: 'You are not allowed to access this page.',
+          variant: 'destructive',
+          duration: 2000,
+        });
         return;
       }
       if (res.data) {

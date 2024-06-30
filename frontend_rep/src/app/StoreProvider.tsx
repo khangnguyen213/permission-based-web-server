@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { makeStore, AppStore } from '@/store';
 import { useRef } from 'react';
 import { sessionActions } from '@/store/sessionSlice';
+import { Toaster } from '@/components/ui/toaster';
 
 export default function StoreProvider({
   children,
@@ -17,5 +18,9 @@ export default function StoreProvider({
     storeRef.current.dispatch(sessionActions.initializeSession());
     storeRef.current.dispatch(sessionActions.fetchUserData());
   }
-  return <Provider store={storeRef.current}>{children}</Provider>;
+  return (
+    <Provider store={storeRef.current}>
+      {children} <Toaster />
+    </Provider>
+  );
 }
