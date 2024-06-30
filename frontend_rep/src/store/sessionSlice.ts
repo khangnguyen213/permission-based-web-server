@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from './index';
 import { authApi } from '@/service/authApi';
-import { TokenData } from '@/common/interfaces';
+import { TokenDataDto } from '@/common/interfaces';
 
 export const initialState: {
   loading: boolean;
-  data: TokenData | null;
+  data: TokenDataDto | null;
 } = {
   loading: false,
   data: null,

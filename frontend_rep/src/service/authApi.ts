@@ -1,4 +1,4 @@
-import { TokenData } from '@/common/interfaces';
+import { TokenDataDto } from '@/common/interfaces';
 import axios from './api';
 
 const baseURL = '/auth';
@@ -35,7 +35,7 @@ export const authApi = {
   },
 
   getData: async (): Promise<{
-    data: TokenData | null;
+    data: TokenDataDto | null;
     err: string;
   }> => {
     try {
