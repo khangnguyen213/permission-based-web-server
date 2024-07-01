@@ -14,6 +14,10 @@ export class UserUpdateDto {
 
   @IsOptional()
   @IsString()
+  role: string;
+
+  @IsOptional()
+  @IsString()
   @MinLength(4)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {

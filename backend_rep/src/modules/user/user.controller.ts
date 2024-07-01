@@ -75,11 +75,18 @@ export class UserController {
       const { data, err } = await this.userService.update(id, body);
       if (err) {
         if (isPrismaError(err, 'P2025')) {
-          return res.status(500).json({
-            message: RESPONSE_MESSAGES.ERROR_USER_NOT_FOUND,
-          });
-        }
+          if (err.meta.cause === 'Record to update not found.') {
+            return res.status(500).json({
+              message: RESPONSE_MESSAGES.ERROR_USER_NOT_FOUND,
+            });
+          }
 
+          if (err.meta.cause.match(/No 'Role' record\(s\)/)) {
+            return res.status(400).json({
+              message: RESPONSE_MESSAGES.ERROR_ROLE_NOT_FOUND,
+            });
+          }
+        }
         if (isPrismaError(err, 'P2002')) {
           return res.status(400).json({
             message: RESPONSE_MESSAGES.ERROR_EMAIL_ALREADY_EXISTS,

@@ -50,18 +50,36 @@ export class UserService {
 
   async update(id: string, data: UserUpdateDto) {
     try {
-      if (!data.email && !data.password) {
+      let updateData: {
+        email?: string;
+        password?: string;
+        role?: {
+          connect: {
+            name: string;
+          };
+        };
+      } = {};
+
+      if (!data.email && !data.password && !data.role) {
         throw {
           message: RESPONSE_MESSAGES.ERROR_UPDATE_WITHOUT_DATA,
         };
       }
       if (data.password) {
-        data.password = hashSync(data.password, 10);
+        updateData.password = hashSync(data.password, 10);
+      }
+
+      if (data.role) {
+        updateData.role = {
+          connect: {
+            name: data.role,
+          },
+        };
       }
 
       const updatedUser = await this.prisma.user.update({
         where: { id },
-        data,
+        data: updateData,
         select: {
           id: true,
           email: true,
