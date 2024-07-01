@@ -10,7 +10,15 @@ export class UserService {
 
   async getAll() {
     try {
-      const data = await this.prisma.user.findMany();
+      const data = await this.prisma.user.findMany({
+        include: {
+          role: {
+            include: {
+              permissions: true,
+            },
+          },
+        },
+      });
       return { data };
     } catch (err) {
       return { err };
