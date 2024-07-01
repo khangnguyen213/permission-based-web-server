@@ -84,8 +84,8 @@ export const UserDialog = ({
     if (values.email && values.email !== user.email) {
       updateData.email = values.email;
     }
-
-    if (values.role && values.role !== user.role.name) {
+    console.log(user);
+    if (values.role && values.role !== user.role?.name) {
       updateData.role = values.role;
     }
 
