@@ -6,8 +6,8 @@ function DashboardPage() {
     <div className="w-[80%] mx-auto">
       <h1 className="text-center text-2xl p-8">Dashboard</h1>
       <p className="text-center">Welcome to the dashboard</p>
-      <p>Only authenticated user can see this page</p>
-      <ul>
+      <p className="text-center">Only authenticated user can see this page</p>
+      <ul className="flex gap-1 w-fit mx-auto">
         <Link href="user">
           <Button>Users</Button>
         </Link>

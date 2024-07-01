@@ -15,30 +15,5 @@ export default function AuthenticatedLayout({
       window.location.href = '/login';
     }
   }, [sessionStore.data, sessionStore.loading]);
-  return (
-    <main>
-      <div className="p-2 w-fit mx-auto border border-slate-100 rounded-sm">
-        <div>
-          <span className="p-1 bg-slate-500 rounded-sm">ID</span>{' '}
-          {sessionStore.data?.id || ''}
-        </div>
-        <div>
-          <span className="p-1 bg-slate-500 rounded-sm">Email</span>{' '}
-          {sessionStore.data?.email || ''}
-        </div>
-        <div>
-          <span className="p-1 bg-slate-500 rounded-sm">Role</span>{' '}
-          {sessionStore.data?.role?.name || 'Not assigned'}
-        </div>
-        <div>
-          <span className="p-1 bg-slate-500 rounded-sm">Permissions</span>{' '}
-          {sessionStore.data?.role?.permissions
-            .map((permission) => permission.name)
-            .join(', ') || 'Not assigned'}
-        </div>
-      </div>
-
-      {sessionStore.data && children}
-    </main>
-  );
+  return <main>{sessionStore.data && children}</main>;
 }
