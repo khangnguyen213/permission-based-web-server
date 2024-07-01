@@ -11,31 +11,67 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
+import { TrashIcon } from '@radix-ui/react-icons';
+
 import { userApi } from '@/service/userApi';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { UserDialog } from './user-dialog';
+import { Button } from '@/components/ui/button';
 
 function UserTable() {
   const [users, setUsers] = useState<UserDto[]>([]);
   const { toast } = useToast();
 
-  useEffect(() => {
-    userApi.getAll().then((res) => {
-      if (res.err) {
+  const fetchUsers = useCallback(async () => {
+    const { data, err } = await userApi.getAll();
+    if (err) {
+      toast({
+        title: 'Forbidden',
+        description: 'You are not allowed to access this page.',
+        variant: 'destructive',
+        duration: 2000,
+      });
+      return;
+    }
+    if (data) {
+      setUsers(data);
+    }
+  }, [toast]);
+
+  const deleteUser = useCallback(
+    async (id: string) => {
+      const { data, err } = await userApi.delete(id);
+      if (err) {
         toast({
-          title: 'Forbidden',
-          description: 'You are not allowed to access this page.',
+          title: 'Error',
+          description: err,
           variant: 'destructive',
           duration: 2000,
         });
-        return;
       }
-      if (res.data) {
-        setUsers(res.data);
+      if (data) {
+        setUsers((prev) => prev.filter((u) => u.id !== id));
       }
-    });
-  }, [toast]);
+    },
+    [toast]
+  );
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
   return (
     <div>
       <Table>
@@ -56,10 +92,62 @@ function UserTable() {
               <TableCell>{i + 1}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.roleId}</TableCell>
-              <TableCell>{user.createdAt.toLocaleString()}</TableCell>
-              <TableCell>{user.updatedAt.toLocaleString()}</TableCell>
               <TableCell>
-                <UserDialog user={user} />
+                {new Date(user.createdAt).toLocaleString('en-US', {
+                  timeZone: 'Asia/Ho_Chi_Minh',
+                  weekday: 'short',
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  second: 'numeric',
+                })}
+              </TableCell>
+              <TableCell>
+                {new Date(user.updatedAt).toLocaleString('en-US', {
+                  timeZone: 'Asia/Ho_Chi_Minh',
+                  weekday: 'short',
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: 'numeric',
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  second: 'numeric',
+                })}
+              </TableCell>
+              <TableCell className="flex justify-start gap-1">
+                <UserDialog user={user} setUsers={setUsers} />
+
+                <AlertDialog>
+                  <AlertDialogTrigger>
+                    <Button
+                      variant="outline"
+                      className="border-red-400 text-red-400 hover:bg-red-400 hover:text-white"
+                      title="Delete User"
+                    >
+                      <TrashIcon />
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you sure to delete this user?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently
+                        delete your account and remove your data from our
+                        servers.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => deleteUser(user.id)}>
+                        Continue
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </TableCell>
             </TableRow>
           ))}
