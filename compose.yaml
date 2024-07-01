@@ -2,6 +2,8 @@ services:
   frontend:
     build:
       context: frontend_rep
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3000
     ports:
       - 3001:3001
     networks:
