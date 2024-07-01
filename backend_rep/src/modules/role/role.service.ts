@@ -20,6 +20,9 @@ export class RoleService {
             })),
           },
         },
+        include: {
+          permissions: true,
+        },
       });
       return { data: role };
     } catch (err) {
