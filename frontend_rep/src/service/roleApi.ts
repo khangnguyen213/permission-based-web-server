@@ -1,6 +1,5 @@
 import { RoleDto } from '@/common/interfaces';
 import axios from './api';
-import { create } from 'domain';
 
 const baseURL = '/role';
 
