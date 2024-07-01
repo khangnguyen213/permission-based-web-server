@@ -17,6 +17,20 @@ export const roleApi = {
     }
   },
 
+  get: async (
+    roleName: string
+  ): Promise<{
+    data: RoleDto | null;
+    err: string;
+  }> => {
+    try {
+      let response = await axios.get(`${baseURL}/${roleName}`);
+      return { data: response.data.data, err: '' };
+    } catch (error: any) {
+      return { err: error.response.data.message, data: null };
+    }
+  },
+
   create: async (data: {
     name: string;
     permissions: string[];
