@@ -120,14 +120,11 @@ function UserTable() {
                 <UserDialog user={user} setUsers={setUsers} />
 
                 <AlertDialog>
-                  <AlertDialogTrigger>
-                    <Button
-                      variant="outline"
-                      className="border-red-400 text-red-400 hover:bg-red-400 hover:text-white"
-                      title="Delete User"
-                    >
-                      <TrashIcon />
-                    </Button>
+                  <AlertDialogTrigger
+                    className="px-3 rounded-sm border-red-400 text-red-400 hover:bg-red-400 hover:text-white"
+                    title="Delete User"
+                  >
+                    <TrashIcon />
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
