@@ -83,6 +83,9 @@ export class RoleService {
       const role = await this.prisma.role.update({
         where: { name },
         data: updateData,
+        include: {
+          permissions: true,
+        },
       });
       return { data: role };
     } catch (err) {
