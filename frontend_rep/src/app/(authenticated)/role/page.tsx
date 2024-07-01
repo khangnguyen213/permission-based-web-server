@@ -12,6 +12,7 @@ function Role() {
           <ArrowLeftIcon /> Back
         </Button>
       </Link>
+
       <h1 className="text-2xl py-8">Role Page</h1>
       <RoleTable />
     </div>

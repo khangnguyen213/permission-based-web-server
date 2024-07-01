@@ -13,10 +13,10 @@ import {
 
 import { useCallback, useEffect, useState } from 'react';
 import { useToast } from '@/components/ui/use-toast';
-import { RoleDialog } from './role-dialog';
 import { roleApi } from '@/service/roleApi';
 import { permissionApi } from '@/service/permissionApi';
 import { Checkbox } from '@/components/ui/checkbox';
+import { RoleCreateDialog } from './role-create-dialog';
 
 function RoleTable() {
   const [permissions, setPermissions] = useState<PermissionDto[]>([]);
@@ -48,6 +48,7 @@ function RoleTable() {
         variant: 'destructive',
         duration: 2000,
       });
+      window.location.href = '/dashboard';
       return;
     }
     if (data) {
@@ -61,6 +62,10 @@ function RoleTable() {
   }, [fetchPermissions, fetchRoles]);
   return (
     <div>
+      <RoleCreateDialog
+        availablePermissions={permissions}
+        setRoles={setRoles}
+      />
       <Table>
         <TableCaption>A list of roles</TableCaption>
         <TableHeader>
@@ -80,7 +85,7 @@ function RoleTable() {
               {permissions.map((permission, j) => (
                 <TableCell key={j}>
                   <Checkbox
-                    checked={role.permissions.some(
+                    checked={role.permissions?.some(
                       (p) => p.name === permission.name
                     )}
                   />
