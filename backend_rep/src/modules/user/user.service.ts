@@ -21,6 +21,13 @@ export class UserService {
     try {
       const data = await this.prisma.user.findUnique({
         where: { id },
+        include: {
+          role: {
+            include: {
+              permissions: true,
+            },
+          },
+        },
       });
       if (!data) {
         throw {
