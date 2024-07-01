@@ -5,7 +5,10 @@ class Api {
   token: string | null;
   axios: AxiosInstance;
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_URL;
+    this.baseURL =
+      process.env.NEXT_PUBLIC_API_URL ||
+      process.env.PUBLIC_API_URL ||
+      'http://localhost:3000';
     if (typeof window !== 'undefined') {
       this.token = localStorage?.getItem('token')
         ? window.localStorage.getItem('token')
