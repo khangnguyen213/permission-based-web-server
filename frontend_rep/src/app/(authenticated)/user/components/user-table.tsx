@@ -35,7 +35,7 @@ function UserTable() {
         setUsers(res.data);
       }
     });
-  }, []);
+  }, [toast]);
   return (
     <div>
       <Table>
