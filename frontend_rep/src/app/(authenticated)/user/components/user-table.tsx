@@ -10,12 +10,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+
 import { userApi } from '@/service/userApi';
 import { useEffect, useState } from 'react';
-import { toast, useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/components/ui/use-toast';
+import { UserDialog } from './user-dialog';
 
 function UserTable() {
   const [users, setUsers] = useState<UserDto[]>([]);
+  const { toast } = useToast();
 
   useEffect(() => {
     userApi.getAll().then((res) => {
@@ -34,7 +37,7 @@ function UserTable() {
     });
   }, []);
   return (
-    <div className="w-[80%] mx-auto">
+    <div>
       <Table>
         <TableCaption>A list of users</TableCaption>
         <TableHeader>
@@ -44,6 +47,7 @@ function UserTable() {
             <TableHead>Role</TableHead>
             <TableHead>createdAt</TableHead>
             <TableHead>updatedAt</TableHead>
+            <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -54,6 +58,9 @@ function UserTable() {
               <TableCell>{user.roleId}</TableCell>
               <TableCell>{user.createdAt.toLocaleString()}</TableCell>
               <TableCell>{user.updatedAt.toLocaleString()}</TableCell>
+              <TableCell>
+                <UserDialog user={user} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
