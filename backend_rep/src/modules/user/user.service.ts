@@ -65,6 +65,11 @@ export class UserService {
           message: RESPONSE_MESSAGES.ERROR_UPDATE_WITHOUT_DATA,
         };
       }
+
+      if (data.email) {
+        updateData.email = data.email;
+      }
+
       if (data.password) {
         updateData.password = hashSync(data.password, 10);
       }
