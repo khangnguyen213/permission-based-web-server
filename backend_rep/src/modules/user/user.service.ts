@@ -11,12 +11,18 @@ export class UserService {
   async getAll() {
     try {
       const data = await this.prisma.user.findMany({
-        include: {
+        select: {
+          id: true,
+          email: true,
           role: {
-            include: {
+            select: {
+              name: true,
               permissions: true,
             },
           },
+          roleId: true,
+          createdAt: true,
+          updatedAt: true,
         },
       });
       return { data };
@@ -29,12 +35,18 @@ export class UserService {
     try {
       const data = await this.prisma.user.findUnique({
         where: { id },
-        include: {
+        select: {
+          id: true,
+          email: true,
           role: {
-            include: {
+            select: {
+              name: true,
               permissions: true,
             },
           },
+          roleId: true,
+          createdAt: true,
+          updatedAt: true,
         },
       });
       if (!data) {
@@ -89,10 +101,14 @@ export class UserService {
           id: true,
           email: true,
           role: {
-            include: {
+            select: {
+              name: true,
               permissions: true,
             },
           },
+          roleId: true,
+          createdAt: true,
+          updatedAt: true,
         },
       });
 
