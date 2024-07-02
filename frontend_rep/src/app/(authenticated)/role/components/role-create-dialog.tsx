@@ -72,7 +72,7 @@ export const RoleCreateDialog = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="float-end" title="Add Role">
+        <Button variant="default" title="Add Role">
           Add
         </Button>
       </DialogTrigger>
