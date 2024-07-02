@@ -36,6 +36,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { roleApi } from '@/service/roleApi';
+import { toast } from '@/components/ui/use-toast';
 
 type FormValues = z.infer<typeof RoleCreateSchema>;
 
@@ -63,6 +64,12 @@ export const RoleCreateDialog = ({
 
       if (data) {
         setRoles((prev) => [...prev, data]);
+        toast({
+          title: 'Success',
+          description: 'Role created successfully',
+          variant: 'success',
+          duration: 2000,
+        });
         form.reset();
         setOpen(false);
       }
