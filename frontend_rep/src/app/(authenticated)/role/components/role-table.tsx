@@ -55,7 +55,7 @@ function RoleTable() {
     if (data) {
       setRoles(data);
     }
-  }, [toast]);
+  }, []);
 
   useEffect(() => {
     fetchPermissions();
