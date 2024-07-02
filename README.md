@@ -63,3 +63,9 @@ Step 3: Open browser
 
 - Frontend: http://localhost:3001
 - Backend: http://localhost:3000
+
+## Login by Root User to create/assign roles
+
+| :-------- | :------------------------- |
+| `email` | root@admin.com |
+| `password` | password |
