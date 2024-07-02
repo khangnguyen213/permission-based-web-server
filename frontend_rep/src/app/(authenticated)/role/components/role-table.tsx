@@ -12,16 +12,17 @@ import {
 } from '@/components/ui/table';
 
 import { useCallback, useEffect, useState } from 'react';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import { roleApi } from '@/service/roleApi';
 import { permissionApi } from '@/service/permissionApi';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RoleCreateDialog } from './role-create-dialog';
+import { TrashIcon } from '@radix-ui/react-icons';
+import { Button } from '@/components/ui/button';
 
 function RoleTable() {
   const [permissions, setPermissions] = useState<PermissionDto[]>([]);
   const [roles, setRoles] = useState<RoleDto[]>([]);
-  const { toast } = useToast();
 
   const fetchPermissions = useCallback(async () => {
     const { data, err } = await permissionApi.getAll();
@@ -37,7 +38,7 @@ function RoleTable() {
     if (data) {
       setPermissions(data);
     }
-  }, [toast]);
+  }, []);
 
   const fetchRoles = useCallback(async () => {
     const { data, err } = await roleApi.getAll();
@@ -91,6 +92,15 @@ function RoleTable() {
                   />
                 </TableCell>
               ))}
+              <TableCell>
+                <Button
+                  title="Delete Role"
+                  variant="outline"
+                  className="text-red-400 border-red-400 hover:bg-red-400 hover:text-white"
+                >
+                  <TrashIcon />
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,4 +1,4 @@
-import { PermissionDto, RoleDto, UserDto } from '@/common/interfaces';
+import { PermissionDto, RoleDto } from '@/common/interfaces';
 import { Button } from '@/components/ui/button';
 
 import {

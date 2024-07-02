@@ -27,13 +27,11 @@ import { TrashIcon } from '@radix-ui/react-icons';
 
 import { userApi } from '@/service/userApi';
 import { useCallback, useEffect, useState } from 'react';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import { UserDialog } from './user-dialog';
-import { Button } from '@/components/ui/button';
 
 function UserTable() {
   const [users, setUsers] = useState<UserDto[]>([]);
-  const { toast } = useToast();
 
   const fetchUsers = useCallback(async () => {
     const { data, err } = await userApi.getAll();
@@ -49,25 +47,22 @@ function UserTable() {
     if (data) {
       setUsers(data);
     }
-  }, [toast]);
+  }, []);
 
-  const deleteUser = useCallback(
-    async (id: string) => {
-      const { data, err } = await userApi.delete(id);
-      if (err) {
-        toast({
-          title: 'Error',
-          description: err,
-          variant: 'destructive',
-          duration: 2000,
-        });
-      }
-      if (data) {
-        setUsers((prev) => prev.filter((u) => u.id !== id));
-      }
-    },
-    [toast]
-  );
+  const deleteUser = useCallback(async (id: string) => {
+    const { data, err } = await userApi.delete(id);
+    if (err) {
+      toast({
+        title: 'Error',
+        description: err,
+        variant: 'destructive',
+        duration: 2000,
+      });
+    }
+    if (data) {
+      setUsers((prev) => prev.filter((u) => u.id !== id));
+    }
+  }, []);
 
   useEffect(() => {
     fetchUsers();

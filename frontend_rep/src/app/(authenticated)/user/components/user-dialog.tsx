@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/select';
 
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import { UserUpdateSchema } from '@/schemaValidations/user.schema';
 import { roleApi } from '@/service/roleApi';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -57,7 +57,6 @@ export const UserDialog = ({
   setUsers: Dispatch<SetStateAction<UserDto[]>>;
 }) => {
   const [roles, setRoles] = useState<RoleDto[]>([]);
-  const { toast } = useToast();
 
   const [error, setError] = useState<string>('');
   const form = useForm<FormValues>({
@@ -133,7 +132,7 @@ export const UserDialog = ({
     if (data) {
       setRoles(data);
     }
-  }, [toast]);
+  }, []);
 
   useEffect(() => {
     fetchRoles();
