@@ -66,6 +66,7 @@ Step 3: Open browser
 
 ## Login by Root User to create/assign roles
 
-| :-------- | :------------------------- |
-| `email` | root@admin.com |
-| `password` | password |
+| Parameter  | Value          |
+| :--------- | :------------- |
+| `email`    | root@admin.com |
+| `password` | password       |
