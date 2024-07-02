@@ -105,6 +105,7 @@ export const UserDialog = ({
 
       toast({
         title: 'User updated',
+        variant: 'success',
         duration: 2000,
       });
       setUsers((prev) => {

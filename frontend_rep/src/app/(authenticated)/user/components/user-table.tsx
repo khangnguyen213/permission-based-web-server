@@ -61,6 +61,12 @@ function UserTable() {
     }
     if (data) {
       setUsers((prev) => prev.filter((u) => u.id !== id));
+      toast({
+        title: 'Success',
+        description: 'User deleted successfully',
+        variant: 'success',
+        duration: 2000,
+      });
     }
   }, []);
 

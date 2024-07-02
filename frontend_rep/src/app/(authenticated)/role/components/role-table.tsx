@@ -57,6 +57,7 @@ function RoleTable() {
       toast({
         title: 'Success',
         description: 'Role deleted successfully',
+        variant: 'success',
         duration: 2000,
       });
     }
