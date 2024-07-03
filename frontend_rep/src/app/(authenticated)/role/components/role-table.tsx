@@ -33,7 +33,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { set } from 'zod';
+import { RoleEditNameDialog } from './role-edit-name-dialog';
 
 function RoleTable() {
   const [isLoading, setIsLoading] = useState(true);
@@ -200,7 +200,12 @@ function RoleTable() {
               {draftRoles.map((role, i) => (
                 <TableRow key={role.name}>
                   <TableCell>{i + 1}</TableCell>
-                  <TableCell>{role.name}</TableCell>
+                  <TableCell>
+                    <RoleEditNameDialog
+                      roleName={role.name}
+                      setRoles={setRoles}
+                    />
+                  </TableCell>
                   {permissions.map((permission) => (
                     <TableCell key={permission.name}>
                       <Checkbox
