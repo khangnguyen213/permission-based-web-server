@@ -94,19 +94,13 @@ function UserTable() {
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.roleId}</TableCell>
               <TableCell>
-                {new Date(user.createdAt).toLocaleString('en-US', {
-                  timeZone: 'Asia/Ho_Chi_Minh',
-                  weekday: 'short',
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: 'numeric',
-                  second: 'numeric',
-                })}
+                {new Date(user.createdAt)
+                  .toISOString()
+                  .split('T')[0]
+                  .replace(/-/g, '/')}
               </TableCell>
               <TableCell>
-                {new Date(user.updatedAt).toLocaleString('en-US', {
+                {/* {new Date(user.updatedAt).toLocaleString('en-US', {
                   timeZone: 'Asia/Ho_Chi_Minh',
                   weekday: 'short',
                   year: 'numeric',
@@ -115,7 +109,11 @@ function UserTable() {
                   hour: 'numeric',
                   minute: 'numeric',
                   second: 'numeric',
-                })}
+                })} */}
+                {new Date(user.updatedAt)
+                  .toISOString()
+                  .split('T')[0]
+                  .replace(/-/g, '/')}
               </TableCell>
               <TableCell className="flex justify-start gap-1">
                 <UserDialog user={user} setUsers={setUsers} />
