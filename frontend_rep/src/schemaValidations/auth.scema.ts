@@ -2,9 +2,10 @@ import z from 'zod';
 
 export const RegisterBody = z
   .object({
-    email: z.string().email(),
+    email: z.string().min(1, 'Email is required').email(),
     password: z
       .string()
+      .min(1, 'Password is required')
       .min(6)
       .max(256)
       .regex(
@@ -25,6 +26,6 @@ export const RegisterBody = z
   });
 
 export const LoginBody = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z.string().min(1, 'Email is required').email(),
+  password: z.string().min(1, 'Password is required'),
 });
