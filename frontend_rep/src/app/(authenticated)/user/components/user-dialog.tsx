@@ -56,8 +56,8 @@ export const UserDialog = ({
   user: UserDto;
   setUsers: Dispatch<SetStateAction<UserDto[]>>;
 }) => {
+  const [open, setOpen] = useState(false);
   const [roles, setRoles] = useState<RoleDto[]>([]);
-
   const [error, setError] = useState<string>('');
   const form = useForm<FormValues>({
     resolver: zodResolver(UserUpdateSchema),
@@ -83,7 +83,6 @@ export const UserDialog = ({
     if (values.email && values.email !== user.email) {
       updateData.email = values.email;
     }
-    console.log(user);
     if (values.role && values.role !== user.role?.name) {
       updateData.role = values.role;
     }
@@ -116,6 +115,8 @@ export const UserDialog = ({
           return u;
         });
       });
+
+      setOpen(false);
     }
   }
 
@@ -139,7 +140,7 @@ export const UserDialog = ({
     fetchRoles();
   }, [fetchRoles]);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" title="Edit User">
           <Pencil2Icon />
