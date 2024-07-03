@@ -13,7 +13,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -126,6 +125,7 @@ export const RoleCreateDialog = ({
                           <DropdownMenuCheckboxItem
                             key={permission.name}
                             checked={field.value.includes(permission.name)}
+                            onSelect={(e) => e.preventDefault()}
                             onCheckedChange={(checked) => {
                               if (checked) {
                                 form.setValue('permissions', [
@@ -149,17 +149,6 @@ export const RoleCreateDialog = ({
                     </DropdownMenu>
                   </FormControl>
                   <FormMessage />
-                  <FormDescription>
-                    <span>Selected Permissions</span>
-                    <br />
-                    {field.value.map((name) => (
-                      <span key={name}>
-                        {' '}
-                        - {name}
-                        <br />
-                      </span>
-                    ))}
-                  </FormDescription>
                 </FormItem>
               )}
             />
