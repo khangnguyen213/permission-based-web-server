@@ -11,7 +11,8 @@ export default function HeaderItems() {
   const logout = () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
-      window.location.href = '/';
+      window.history.replaceState(null, '', '/');
+      window.location.reload();
     }
   };
   return (
