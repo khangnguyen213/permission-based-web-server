@@ -74,6 +74,14 @@ export class RoleService {
       const updateData: Prisma.RoleUpdateInput = {};
 
       if (data.name) {
+        const existedRole = await this.prisma.role.findUnique({
+          where: { name: data.name },
+        });
+        if (existedRole) {
+          throw {
+            message: RESPONSE_MESSAGES.ERROR_ROLE_ALREADY_EXISTS,
+          };
+        }
         updateData.name = data.name.toUpperCase();
       }
       if (data.permissions) {
