@@ -30,7 +30,7 @@ function ReportView() {
           data={fileUrl}
           type="application/pdf"
           width="100%"
-          height="600px"
+          className="aspect-[8.5/11]"
         >
           <p>
             Your browser does not support PDFs.{' '}
