@@ -14,13 +14,12 @@ export class UserService {
         select: {
           id: true,
           email: true,
-          role: {
+          roles: {
             select: {
               name: true,
               permissions: true,
             },
           },
-          roleId: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -38,13 +37,12 @@ export class UserService {
         select: {
           id: true,
           email: true,
-          role: {
+          roles: {
             select: {
               name: true,
               permissions: true,
             },
           },
-          roleId: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -65,14 +63,14 @@ export class UserService {
       let updateData: {
         email?: string;
         password?: string;
-        role?: {
-          connect: {
+        roles?: {
+          set: {
             name: string;
-          };
+          }[];
         };
       } = {};
 
-      if (!data.email && !data.password && !data.role) {
+      if (!data.email && !data.password && !data.roles) {
         throw {
           message: RESPONSE_MESSAGES.ERROR_UPDATE_WITHOUT_DATA,
         };
@@ -86,11 +84,11 @@ export class UserService {
         updateData.password = hashSync(data.password, 10);
       }
 
-      if (data.role) {
-        updateData.role = {
-          connect: {
-            name: data.role,
-          },
+      if (data.roles) {
+        updateData.roles = {
+          set: data.roles.map((role) => ({
+            name: role.toUpperCase(),
+          })),
         };
       }
 
@@ -100,13 +98,12 @@ export class UserService {
         select: {
           id: true,
           email: true,
-          role: {
+          roles: {
             select: {
               name: true,
               permissions: true,
             },
           },
-          roleId: true,
           createdAt: true,
           updatedAt: true,
         },

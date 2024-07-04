@@ -54,7 +54,7 @@ const generateRootUser = (): Prisma.UserCreateInput => {
   return {
     email: 'root@admin.com',
     password: hashSync('password', 10),
-    role: {
+    roles: {
       connect: {
         name: 'ADMIN',
       },

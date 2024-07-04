@@ -13,8 +13,8 @@ export class UserUpdateDto {
   email: string;
 
   @IsOptional()
-  @IsString()
-  role: string;
+  @IsString({ each: true })
+  roles: string[];
 
   @IsOptional()
   @IsString()
