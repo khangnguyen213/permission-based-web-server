@@ -8,11 +8,11 @@ import { ROLE_PERMISSIONS } from 'src/common/constants';
 import { Permission } from '../auth/permission.decorator';
 
 @UseGuards(AuthGuard('jwt'))
-@UseGuards(PermissionGuard)
-@Permission(ROLE_PERMISSIONS.REPORT_GENERATE)
 @Controller('pdf')
 export class PdfController {
   constructor(private readonly pdfService: PdfService) {}
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.REPORT_GENERATE)
   @Get('download')
   async getPDF(
     @Req() req: RequestWithUserData,
@@ -31,6 +31,8 @@ export class PdfController {
     res.end(buffer);
   }
 
+  @UseGuards(PermissionGuard)
+  @Permission(ROLE_PERMISSIONS.REPORT_GENERATE)
   @Get('view')
   async viewPDF(
     @Req() req: RequestWithUserData,
