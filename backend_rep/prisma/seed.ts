@@ -30,6 +30,9 @@ const generatePermissions = (): Prisma.PermissionCreateInput[] => {
     {
       name: 'role:delete',
     },
+    {
+      name: 'report:generate',
+    },
   ];
 };
 
