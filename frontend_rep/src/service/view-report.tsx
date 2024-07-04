@@ -8,7 +8,7 @@ function ViewReport() {
     process.env.PUBLIC_API_URL ||
     'http://localhost:3000';
   return (
-    <Link href={baseURL + '/pdf/view'} target="_blank">
+    <Link href="/report">
       <Button>User Report</Button>
     </Link>
   );
