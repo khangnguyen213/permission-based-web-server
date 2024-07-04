@@ -30,7 +30,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { UserDialog } from './user-dialog';
 import { Badge } from '@/components/ui/badge';
-import ViewReport from '@/service/view-report';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 function UserTable() {
   const [users, setUsers] = useState<UserDto[]>([]);
@@ -78,7 +79,9 @@ function UserTable() {
   return (
     <div>
       <div className="flex justify-end">
-        <ViewReport />
+        <Link href="/report">
+          <Button>View Report</Button>
+        </Link>
       </div>
       <Table>
         <TableCaption>A list of users</TableCaption>
