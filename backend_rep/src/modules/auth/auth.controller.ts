@@ -68,7 +68,7 @@ export class AuthController {
       data: {
         id: req.user.id,
         email: req.user.email,
-        role: req.user.role,
+        roles: req.user.roles,
       },
     });
   }
