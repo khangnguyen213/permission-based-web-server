@@ -1,13 +1,26 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { PdfService } from './pdf.service';
 import { Response } from 'express';
+import { RequestWithUserData } from 'src/common/interfaces';
+import { AuthGuard } from '@nestjs/passport';
+import { PermissionGuard } from '../auth/permission.guard';
+import { ROLE_PERMISSIONS } from 'src/common/constants';
+import { Permission } from '../auth/permission.decorator';
 
+@UseGuards(AuthGuard('jwt'))
+@UseGuards(PermissionGuard)
+@Permission(ROLE_PERMISSIONS.REPORT_GENERATE)
 @Controller('pdf')
 export class PdfController {
   constructor(private readonly pdfService: PdfService) {}
   @Get('download')
-  async getPDF(@Res() res: Response): Promise<void> {
-    const buffer = await this.pdfService.generatePDF();
+  async getPDF(
+    @Req() req: RequestWithUserData,
+    @Res() res: Response,
+  ): Promise<void> {
+    const buffer = await this.pdfService.generatePDF({
+      generator: req.user.email,
+    });
 
     res.set({
       'Content-Type': 'application/pdf',
@@ -19,8 +32,13 @@ export class PdfController {
   }
 
   @Get('view')
-  async viewPDF(@Res() res: Response): Promise<void> {
-    const buffer = await this.pdfService.generatePDF();
+  async viewPDF(
+    @Req() req: RequestWithUserData,
+    @Res() res: Response,
+  ): Promise<void> {
+    const buffer = await this.pdfService.generatePDF({
+      generator: req.user.email,
+    });
 
     res.set({
       'Content-Type': 'application/pdf',

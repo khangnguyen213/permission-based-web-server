@@ -20,4 +20,5 @@ export const ROLE_PERMISSIONS = {
   ROLE_READ: 'role:read',
   ROLE_UPDATE: 'role:update',
   ROLE_DELETE: 'role:delete',
+  REPORT_GENERATE: 'report:generate',
 };
