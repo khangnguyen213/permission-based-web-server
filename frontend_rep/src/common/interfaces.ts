@@ -1,15 +1,14 @@
 export type TokenDataDto = {
   id: string;
   email: string;
-  role: RoleDto;
+  roles: RoleDto[];
 };
 
 export type UserDto = {
   id: string;
   email: string;
   password: string;
-  roleId: string;
-  role: RoleDto;
+  roles: RoleDto[];
   createdAt: Date;
   updatedAt: Date;
 };

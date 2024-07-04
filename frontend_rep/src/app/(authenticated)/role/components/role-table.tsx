@@ -92,7 +92,6 @@ function RoleTable() {
         variant: 'destructive',
         duration: 2000,
       });
-      window.location.href = '/dashboard';
       return;
     }
     if (data) {

@@ -3,7 +3,7 @@ import z from 'zod';
 export const UserUpdateSchema = z
   .object({
     email: z.string().email().optional().or(z.literal('')),
-    role: z.string().optional(),
+    roles: z.array(z.string()),
     password: z
       .string()
       .min(6)

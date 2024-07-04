@@ -29,6 +29,7 @@ import { userApi } from '@/service/userApi';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { UserDialog } from './user-dialog';
+import { Badge } from '@/components/ui/badge';
 
 function UserTable() {
   const [users, setUsers] = useState<UserDto[]>([]);
@@ -81,7 +82,7 @@ function UserTable() {
           <TableRow>
             <TableHead>#</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Role</TableHead>
+            <TableHead>Roles</TableHead>
             <TableHead>createdAt</TableHead>
             <TableHead>updatedAt</TableHead>
             <TableHead>Actions</TableHead>
@@ -92,7 +93,13 @@ function UserTable() {
             <TableRow key={user.id}>
               <TableCell>{i + 1}</TableCell>
               <TableCell>{user.email}</TableCell>
-              <TableCell>{user.roleId}</TableCell>
+              <TableCell className="flex gap-1 flex-wrap">
+                {user.roles.map((role) => (
+                  <Badge variant="default" key={role.name}>
+                    {role.name}
+                  </Badge>
+                ))}
+              </TableCell>
               <TableCell>
                 {new Date(user.createdAt)
                   .toISOString()

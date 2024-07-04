@@ -46,6 +46,14 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import Link from 'next/link';
 import { userApi } from '@/service/userApi';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 type FormValues = z.infer<typeof UserUpdateSchema>;
 
@@ -64,7 +72,7 @@ export const UserDialog = ({
     defaultValues: {
       email: '',
       password: '',
-      role: user?.role?.name,
+      roles: user?.roles?.map((r) => r.name) ?? [],
       confirmPassword: '',
     },
   });
@@ -75,7 +83,7 @@ export const UserDialog = ({
     let updateData: Partial<{
       email: string;
       password: string;
-      role: string;
+      roles: string[];
     }> = {};
     if (values.password) {
       updateData.password = values.password;
@@ -83,11 +91,19 @@ export const UserDialog = ({
     if (values.email && values.email !== user.email) {
       updateData.email = values.email;
     }
-    if (values.role && values.role !== user.role?.name) {
-      updateData.role = values.role;
+    if (
+      values.roles.length > 0 &&
+      JSON.stringify(values.roles) !==
+        JSON.stringify(user.roles?.map((r) => r.name))
+    ) {
+      updateData.roles = values.roles;
     }
 
-    if (!updateData.email && !updateData.password && !updateData.role) {
+    if (
+      !updateData.email &&
+      !updateData.password &&
+      updateData.roles?.length === 0
+    ) {
       setError('Nothing to update');
       return;
     }
@@ -171,34 +187,45 @@ export const UserDialog = ({
             />
             <FormField
               control={form.control}
-              name="role"
+              name="roles"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select user role" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {roles.map((role) => (
-                        <SelectItem key={role.name} value={role.name}>
-                          {role.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    You can manage roles in{' '}
-                    <Link href="/role" className="underline">
-                      role page
-                    </Link>
-                    .
-                  </FormDescription>
+                <FormItem className="flex flex-col gap-1">
+                  <FormLabel>Roles</FormLabel>
+                  <FormControl>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline">Role List</Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start" className="w-56">
+                        <DropdownMenuLabel>Avaiable Roles</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {roles.map((role) => (
+                          <DropdownMenuCheckboxItem
+                            key={role.name}
+                            checked={field.value.includes(role.name)}
+                            onSelect={(e) => e.preventDefault()}
+                            onCheckedChange={(checked) => {
+                              if (checked) {
+                                form.setValue('roles', [
+                                  ...field.value,
+                                  role.name,
+                                ]);
+                              } else {
+                                form.setValue(
+                                  'roles',
+                                  field.value.filter(
+                                    (name) => name !== role.name
+                                  )
+                                );
+                              }
+                            }}
+                          >
+                            {role.name}
+                          </DropdownMenuCheckboxItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
