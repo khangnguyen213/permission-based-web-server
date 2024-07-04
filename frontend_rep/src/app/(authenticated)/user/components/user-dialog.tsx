@@ -92,9 +92,8 @@ export const UserDialog = ({
       updateData.email = values.email;
     }
     if (
-      values.roles.length > 0 &&
       JSON.stringify(values.roles) !==
-        JSON.stringify(user.roles?.map((r) => r.name))
+      JSON.stringify(user.roles?.map((r) => r.name))
     ) {
       updateData.roles = values.roles;
     }
@@ -102,7 +101,8 @@ export const UserDialog = ({
     if (
       !updateData.email &&
       !updateData.password &&
-      updateData.roles?.length === 0
+      JSON.stringify(values.roles) ===
+        JSON.stringify(user.roles?.map((r) => r.name))
     ) {
       setError('Nothing to update');
       return;
